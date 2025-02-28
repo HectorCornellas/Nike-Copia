@@ -1,0 +1,61 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="referencia">n. referencia</label>
+    <input type="number" class="form-control" id="referencia" formControlName="referencia">
+    <div *ngIf="productForm.get('referencia')?.invalid && productForm.get('referencia')?.touched" class="text-danger">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Nombre producto</label>
+    <input type="text" class="form-control" id="name" formControlName="name">
+    <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-danger">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="price">precio</label>
+    <input type="number" class="form-control" id="price" formControlName="price">
+    <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-danger">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Descripcion</label>
+    <input type="text" class="form-control" id="description" formControlName="description">
+    <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-danger">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="ProductType">Tipo de producto</label> 
+    <select class="form-control" id="ProductType" formControlName="ProductType"> 
+      <option value="">Seleccione un tipo de producto</option>
+      <option value="zapatillas">Zapatillas</option>
+      <option value="ropa">Ropa</option>
+      <option value="accesorios">Accesorios</option>
+    </select>
+    <div *ngIf="productForm.get('ProductType')?.invalid && productForm.get('ProductType')?.touched" class="text-danger">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="oferta">Producto en oferta</label> 
+    <input type="checkbox" class="form-control" id="oferta" formControlName="oferta"> 
+  </div>
+
+  <div class="form-group">
+    <label for="imagen">Imagen</label> 
+    <input type="file" class="form-control" id="image" formControlName="image"> 
+    <div *ngIf="productForm.get('imagen')?.invalid && productForm.get('imagen')?.touched" class="text-danger">
+      Este campo es obligatorio.
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Aceptar</button>
+</form>

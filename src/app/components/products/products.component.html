@@ -1,0 +1,23 @@
+<div class="bg-gray-100 border-b-1 border-gray-300">
+    <div class="max-w-[40%] flex m-auto py-2 gap-4 items-center">
+        <p class="text-center w-[95%] font-semibold">DEVOLUCIONES Y ENTREGAS GRATUITAS</p>
+        <p class="text-center text-sm text-gray-700">Como Member, tienes envíos gratuitos y devoluciones gratuitas en un plazo de 30 días. <a href="https://www.nike.com/es/help" target="_blank" class="underline text-black">Obtén más información y únete</a></p>
+    </div>
+</div>
+<div class="max-w-[90%] m-auto pt-6">
+    <h2 class="text-3xl">Productos Nike ()</h2>
+</div>
+<div class="max-w-[80%] m-auto py-8 flex justify-center">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let product of products" class="overflow-hidden cursor-pointer">
+            <img [src]="product.image" [alt]="product.name" class="w-82 h-82 object-cover">
+            <div class="py-2">
+                <h3 class="text-xl font-semibold text-gray-800">{{product.name}}</h3>
+                <span class="text-md text-gray-500">{{ product.productType}}</span>
+                <p class="text-gray-500 text-md mb-2">{{ product.description }}</p>
+                <span class="text-lg font-bold">{{ product.price.toFixed(2) }} €</span>
+                <p *ngIf="product.onSale" class="text-green-700 font-bold">En Oferta</p>
+            </div>
+        </div>
+    </div>
+</div>
