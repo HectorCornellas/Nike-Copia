@@ -3,10 +3,12 @@ import { BehaviorSubject, Observable, of } from "rxjs";
 import { Product } from "../interfaces/product.interface";
 import { HttpClient } from "@angular/common/http";
 
+
 @Injectable({
   providedIn: "root",
 })
 export class ProductservicesService {
+  constructor(private http: HttpClient) {}
   private products: Product[] = [
     {
       id: 1,
@@ -47,17 +49,19 @@ export class ProductservicesService {
   ];
   private productsSignal = signal(this.products);
   private filteredProductsSubject = new BehaviorSubject<Product[]>([])
+private apiURL = 'http://localhost:3000';
 
-  // deleteProduct(id: number): void {
-  //   this.products = this.products.filter((p) => p.id !== id);
-  //   this.productsSubject.next([...this.products]);
-  // }
+  subirImagen(file: File): Observable<{ imageUrl: string }> {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    return this.http.post<{ imageUrl: string }>(`${this.apiURL}/upload` ,formData);
+  }
 
   getProducts(): Product[] {
-    return this.productsSignal(); // Llamamos a la Signal para obtener los productos
+    return this.productsSignal(); 
   }
   addProduct(product: Product) {
-    // Utilizamos update() para agregar un nuevo producto a la Signal
     this.productsSignal.update((products) => [...products, product]);
   }
 

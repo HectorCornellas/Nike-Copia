@@ -51,7 +51,7 @@
 
   <div class="form-group">
     <label for="imagen">Imagen</label> 
-    <input type="file" class="form-control" id="image" formControlName="image"> 
+    <input type="file" class="form-control" (change)="onImageSelected($event)" id="image" formControlName="image"> 
     <div *ngIf="productForm.get('imagen')?.invalid && productForm.get('imagen')?.touched" class="text-danger">
       Este campo es obligatorio.
     </div>
