@@ -16,17 +16,17 @@
   </div>
 
   <div class="form-group">
-    <label for="price">precio</label>
-    <input type="number" class="form-control" id="price" formControlName="price">
-    <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-danger">
+    <label for="precio">precio</label>
+    <input type="number" class="form-control" id="precio" formControlName="precio">
+    <div *ngIf="productForm.get('precio')?.invalid && productForm.get('precio')?.touched" class="text-danger">
       Este campo es obligatorio.
     </div>
   </div>
 
   <div class="form-group">
-    <label for="description">Descripcion</label>
-    <input type="text" class="form-control" id="description" formControlName="description">
-    <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-danger">
+    <label for="descripcion">Descripcion</label>
+    <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+    <div *ngIf="productForm.get('descripcion')?.invalid && productForm.get('descripcion')?.touched" class="text-danger">
       Este campo es obligatorio.
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Injectable, signal} from "@angular/core";
+import { Injectable,signal} from "@angular/core";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { Product } from "../interfaces/product.interface";
 import { HttpClient } from "@angular/common/http";
@@ -9,47 +9,12 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ProductservicesService {
   constructor(private http: HttpClient) {}
-  private products: Product[] = [
-    {
-      id: 1,
-      name: "Nike Air Force 1 '07",
-      price: 119.99,
-      description: "6 colores",
-      productType: "Bambas - Hombre",
-      onSale: true,
-      image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/4f37fca8-6bce-43e7-ad07-f57ae3c13142/AIR+FORCE+1+%2707.png",
-    },
-    {
-      id: 2,
-      name: "Nike Air Force 1 Low",
-      price: 159.99,
-      description: "1 color",
-      productType: "Bambas - Mujer",
-      onSale: false,
-      image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0b58e370-a5d5-4283-b54f-1cbd72d925cf/AIR+FORCE+1+LOW+SP.png",
-    },
-    {
-      id: 3,
-      name: "Nike Sportswear Club Fleece",
-      price: 59.99,
-      description: "5 colores",
-      productType: "Ropa - Hombre",
-      onSale: true,
-      image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/684aca16-6b8d-40b8-b203-6e77088d353f/M+NSW+CLUB+CRW+BB.png",
-    },
-    {
-      id: 4,
-      name: "Nike Sportswear Tech Fleece Windrunner",
-      price: 119.99,
-      description: "4 colores",
-      productType: "Ropa - Mujer",
-      onSale: true,
-      image: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/d4847995-4174-47e6-9535-26694b30c482/W+NSW+TCH+FLC+WR+FZ+HDY+2.png",
-    },
-  ];
+  private products: Product[] = [  ];
   private productsSignal = signal(this.products);
   private filteredProductsSubject = new BehaviorSubject<Product[]>([])
 private apiURL = 'http://localhost:3000';
+private apiURLProductos = 'http://localhost:3306';
+
 
   subirImagen(file: File): Observable<{ imageUrl: string }> {
     const formData = new FormData();
@@ -58,15 +23,29 @@ private apiURL = 'http://localhost:3000';
     return this.http.post<{ imageUrl: string }>(`${this.apiURL}/upload` ,formData);
   }
 
-  getProducts(): Product[] {
-    return this.productsSignal(); 
-  }
-  addProduct(product: Product) {
-    this.productsSignal.update((products) => [...products, product]);
+  // 📌 Obtener todos los productos
+  getAllProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiURLProductos + "/productos");
   }
 
-  getProductById(id: number): Product | undefined {
-    return this.products.find((p) => p.id === id)
+  // 📌 Registrar un nuevo producto
+  addProduct(product: Product): Observable<{ message: string; id: number }> {
+    return this.http.post<{ message: string; id: number }>(this.apiURLProductos + "/products", product);
+  }
+
+  // 📌 Obtener un producto por ID
+  getProductById(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.apiURLProductos + "/productos"}/${id}`);
+  }
+
+  // 📌 Editar un producto
+  updateProduct(id: number, product: Partial<Product>): Observable<{ message: string }> {
+    return this.http.put<{ message: string }>(`${this.apiURLProductos + "/productos"}/${id}`, product);
+  }
+
+  // 📌 Eliminar un producto
+  deleteProduct(id: number): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.apiURLProductos + "/productos"}/${id}`);
   }
 
   searchProducts(searchTerm: string): void {
@@ -79,7 +58,7 @@ private apiURL = 'http://localhost:3000';
     const filteredProducts = this.products.filter(
       (product) =>
         product.name.toLowerCase().includes(lowercaseSearchTerm) ||
-        product.description.toLowerCase().includes(lowercaseSearchTerm) ||
+        product.descripcion.toLowerCase().includes(lowercaseSearchTerm) ||
         product.productType.toLowerCase().includes(lowercaseSearchTerm),
     )
 

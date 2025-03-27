@@ -5,7 +5,7 @@
     </div>
 </div>
 <div class="max-w-[90%] m-auto pt-6">
-    <h2 class="text-3xl">Productos Nike ()</h2>
+    <h2 class="text-3xl">Productos Nike</h2>
 </div>
 <div class="max-w-[80%] m-auto py-8 flex justify-center">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -14,9 +14,9 @@
             <div class="py-2">
                 <h3 class="text-xl font-semibold text-gray-800">{{product.name}}</h3>
                 <span class="text-md text-gray-500">{{ product.productType}}</span>
-                <p class="text-gray-500 text-md mb-2">{{ product.description }}</p>
-                <span class="text-lg font-bold">{{ product.price.toFixed(2) }} €</span>
-                <p *ngIf="product.onSale" class="text-green-700 font-bold">En Oferta</p>
+                <p class="text-gray-500 text-md mb-2">{{ product.descripcion }}</p>
+                <span class="text-lg font-bold">{{ product.precio.toFixed(2) }} €</span>
+                <p *ngIf="product.en_oferta" class="text-green-700 font-bold">En Oferta</p>
             </div>
         </div>
     </div>

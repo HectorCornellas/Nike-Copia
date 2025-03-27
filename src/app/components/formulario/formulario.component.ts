@@ -1,4 +1,4 @@
-import { Component, type OnInit } from "@angular/core"
+import { Component, signal, type OnInit } from "@angular/core"
 import { FormBuilder, type FormGroup, Validators } from "@angular/forms"
 import { ReactiveFormsModule } from "@angular/forms"
 import { CommonModule } from "@angular/common"
@@ -25,8 +25,8 @@ export class FormularioComponent implements OnInit {
     this.productForm = this.fb.group({
       referencia: ["", Validators.required],
       name: ["", Validators.required],
-      price: ["", Validators.required],
-      description: ["", Validators.required],
+      precio: ["", Validators.required],
+      descripcion: ["", Validators.required],
       ProductType: ["", Validators.required],
       oferta: [false],
       image: [null],
@@ -47,7 +47,7 @@ export class FormularioComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('name', this.productForm.get('name')?.value);
-    formData.append('price', this.productForm.get('price')?.value);
+    formData.append('precio', this.productForm.get('precio')?.value);
     formData.append('desc', this.productForm.get('desc')?.value);
     formData.append('type', this.productForm.get('type')?.value);
 
@@ -60,7 +60,7 @@ export class FormularioComponent implements OnInit {
         console.log('Producto subido con éxito:', response);
         this.productForm.value.image = response.imageUrl;
         this.productService.addProduct(this.productForm.value)
-        this.productForm.reset();
+        this.productForm.reset();6
         this.selectedImage = undefined;
       },
       (error) => {

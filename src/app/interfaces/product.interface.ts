@@ -1,9 +1,9 @@
 export interface Product {
     id: number;
     name: string;
-    price: number;
-    description: string;
+    precio: number;
+    descripcion: string;
     productType: string;
-    onSale: boolean;
+    en_oferta: boolean;
     image: string;
 }
